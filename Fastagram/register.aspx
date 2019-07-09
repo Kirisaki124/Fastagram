@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="Fastagram.register" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Fastagram.Register" %>
 
 <!DOCTYPE html>
 
@@ -14,10 +14,10 @@
         <asp:TextBox ID="txtUserName" runat="server" required="true"></asp:TextBox>
         <br />
         <asp:Label ID="lbPassword" runat="server" Text="Password:"></asp:Label>
-        <asp:TextBox ID="txtPassword" runat="server" required="true"></asp:TextBox>
+        <asp:TextBox ID="txtPassword" runat="server" required="true" TextMode="Password"></asp:TextBox>
         <br />
         <asp:Label ID="lbRePassword" runat="server" Text="Re-enter password:"></asp:Label>
-        <asp:TextBox ID="txtRePassword" runat="server" required="true"></asp:TextBox>
+        <asp:TextBox ID="txtRePassword" runat="server" required="true" TextMode="Password"></asp:TextBox>
         <br />
         <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click"/>
     </form>

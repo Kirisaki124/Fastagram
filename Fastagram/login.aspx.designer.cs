@@ -10,7 +10,7 @@
 namespace Fastagram {
     
     
-    public partial class login {
+    public partial class Login {
         
         /// <summary>
         /// frmLogin control.
@@ -31,15 +31,6 @@ namespace Fastagram {
         protected global::System.Web.UI.WebControls.Label lbMessage;
         
         /// <summary>
-        /// lbUserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbUserName;
-        
-        /// <summary>
         /// txtUserName control.
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace Fastagram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUserName;
-        
-        /// <summary>
-        /// lbPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbPassword;
         
         /// <summary>
         /// txtPassword control.

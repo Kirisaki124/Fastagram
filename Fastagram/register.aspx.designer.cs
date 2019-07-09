@@ -10,7 +10,7 @@
 namespace Fastagram {
     
     
-    public partial class register {
+    public partial class Register {
         
         /// <summary>
         /// frmRegister control.

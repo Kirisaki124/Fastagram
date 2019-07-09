@@ -1,9 +1,9 @@
-﻿using Fastagram.App_Code;
+﻿using Fastagram.App_Code.Data;
 using System;
 
 namespace Fastagram
 {
-    public partial class register : System.Web.UI.Page
+    public partial class Register : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -12,10 +12,17 @@ namespace Fastagram
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            if (txtPassword.Text == txtRePassword.Text)
+            if (!Manager.IsExist(txtUserName.Text))
             {
-                Manager.AddUser(txtUserName.Text, txtPassword.Text);
-                lbMessage.Text = "Register successfully! You can now login!";
+                if (txtPassword.Text == txtRePassword.Text)
+                {
+                    Manager.AddUser(txtUserName.Text, txtPassword.Text);
+                    lbMessage.Text = "Register successfully! You can now login!";
+                }
+                else
+                {
+                    lbMessage.Text = "Password not match!";
+                }
             }
             else
             {
