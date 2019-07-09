@@ -11,7 +11,6 @@ namespace Fastagram.App_Code
             string ConnectionString = ConfigurationManager.ConnectionStrings["FastagramDB"].ToString();
             return new SqlConnection(ConnectionString);
         }
-
         static DataTable ExecuteSelect(string sql, params SqlParameter[] Params)
         {
             SqlCommand command = new SqlCommand(sql, GetConnection());
@@ -33,7 +32,7 @@ namespace Fastagram.App_Code
         }
         public static bool IsUserValid(string userName, string password)
         {
-            string sql = "select * from [User] where Username = @un and Password = @pw";
+            string sql = "select * from User where Username = @un and Password = @pw";
             SqlParameter para1 = new SqlParameter("@un", SqlDbType.NVarChar);
             para1.Value = userName;
             SqlParameter para2 = new SqlParameter("@pw", SqlDbType.NVarChar);
@@ -49,7 +48,7 @@ namespace Fastagram.App_Code
             para1.Value = userName;
             SqlParameter para2 = new SqlParameter("@pw", SqlDbType.NVarChar);
             para2.Value = password;
-            return ExecuteUpdate(sql, para1, para2) ==1;
+            return ExecuteUpdate(sql, para1, para2) == 1;
         }
     }
 }
