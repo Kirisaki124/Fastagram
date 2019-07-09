@@ -10,6 +10,10 @@
         {
             return DataAccess.AddUser(userName, password);
         }
+        public static bool IsExist(string userName)
+        {
+            return DataAccess.IsExist(userName);
+        }
 
     }
 }
