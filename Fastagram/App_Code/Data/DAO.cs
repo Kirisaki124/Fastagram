@@ -88,6 +88,20 @@ namespace Fastagram.App_Code.Data
             DataTable data = ExecuteSelect(sql, para1);
             return data.Rows.Count == 1;
         }
-        
+        public static User GetUserByName (string userName)
+        {
+            string sql = "select * from [User] where UserName = @un";
+            SqlParameter para1 = new SqlParameter("@un", SqlDbType.NVarChar);
+            para1.Value = userName;
+            DataTable data = ExecuteSelect(sql, para1);
+            foreach (DataRow row in data.Rows)
+            {
+                int id = Convert.ToInt32(row["UserId"]);
+                string name = row["UserName"].ToString();
+                string avatar = row["Avatar"].ToString();
+                return new User(id, name, avatar);
+            }
+            return null;
+        }
     }
 }

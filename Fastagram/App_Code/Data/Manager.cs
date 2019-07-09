@@ -1,4 +1,6 @@
-﻿namespace Fastagram.App_Code.Data
+﻿using Fastagram.App_Code.Model;
+
+namespace Fastagram.App_Code.Data
 {
     public class Manager
     {
@@ -13,6 +15,10 @@
         public static bool IsExist(string userName)
         {
             return DataAccess.IsExist(userName);
+        }
+        public static User GetUserByName(string userName)
+        {
+            return DataAccess.GetUserByName(userName);
         }
 
     }
