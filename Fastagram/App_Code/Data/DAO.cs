@@ -1,11 +1,15 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Fastagram.App_Code.Model;
 
-namespace Fastagram.App_Code
+namespace Fastagram.App_Code.Data
 {
     public class DataAccess
     {
+        public static int MaxPostPerPage { get; set; } = 20;
         static SqlConnection GetConnection()
         {
             string ConnectionString = ConfigurationManager.ConnectionStrings["FastagramDB"].ToString();
@@ -32,7 +36,7 @@ namespace Fastagram.App_Code
         }
         public static bool IsUserValid(string userName, string password)
         {
-            string sql = "select * from User where Username = @un and Password = @pw";
+            string sql = "select * from [User] where Username = @un and Password = @pw";
             SqlParameter para1 = new SqlParameter("@un", SqlDbType.NVarChar);
             para1.Value = userName;
             SqlParameter para2 = new SqlParameter("@pw", SqlDbType.NVarChar);
@@ -50,5 +54,40 @@ namespace Fastagram.App_Code
             para2.Value = password;
             return ExecuteUpdate(sql, para1, para2) == 1;
         }
+        public static List<Post> GetPostByPage (int page)
+        {
+            List<Post> posts = new List<Post>();
+            string sql = @"select *
+                           from (select ROW_NUMBER() over (order by DateCreated) as rownum ,*
+                           from Post 
+                           )as a
+                           where rownum between @min and @max";
+            SqlParameter para1 = new SqlParameter("@un", SqlDbType.Int);
+            para1.Value = (page - 1) * MaxPostPerPage;
+            SqlParameter para2 = new SqlParameter("@pw", SqlDbType.Int);
+            para2.Value = page * MaxPostPerPage;
+
+            DataTable dt = ExecuteSelect(sql, para1, para2);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int id = Convert.ToInt32(row["PostId"]);
+                int userId = Convert.ToInt32(row["UserID"]);
+                string image = row["Image"].ToString();
+                string content = row["Content"].ToString();
+                DateTime date = Convert.ToDateTime(row["DateCreated"]);
+                posts.Add(new Post(id, userId, image, content, date));
+            }
+            return posts;
+        }
+        public static bool IsExist (string userName)
+        {
+            string sql = "select * from [User] where UserName = @un";
+            SqlParameter para1 = new SqlParameter("@un", SqlDbType.NVarChar);
+            para1.Value = userName;
+            DataTable data = ExecuteSelect(sql, para1);
+            return data.Rows.Count == 1;
+        }
+        
     }
 }

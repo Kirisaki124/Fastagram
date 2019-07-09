@@ -1,5 +1,4 @@
-﻿
-namespace Fastagram.App_Code
+﻿namespace Fastagram.App_Code.Data
 {
     public class Manager
     {
@@ -11,5 +10,6 @@ namespace Fastagram.App_Code
         {
             return DataAccess.AddUser(userName, password);
         }
+
     }
 }

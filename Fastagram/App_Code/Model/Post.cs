@@ -11,13 +11,14 @@ namespace Fastagram.App_Code.Model
         public int UserId { get; set; }
         public string Image { get; set; }
         public string Content { get; set; }
-
-        public Post(int id, int userid, string image, string content)
+        public DateTime Date { get; set; }
+        public Post(int id, int userid, string image, string content, DateTime date)
         {
             Id = id;
             UserId = userid;
             Image = image;
             Content = content;
+            Date = date;
         }
     }
 }

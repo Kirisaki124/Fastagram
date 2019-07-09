@@ -68,9 +68,9 @@
   <ItemGroup>
     <Compile Include="App_Code\Data\DAO.cs" />
     <Compile Include="App_Code\Data\Manager.cs" />
-    <Content Include="App_Code\Model\User.cs" />
-    <Content Include="App_Code\Model\Post.cs" />
-    <Content Include="App_Code\Model\comment.cs" />
+    <Compile Include="App_Code\Model\User.cs" />
+    <Compile Include="App_Code\Model\Post.cs" />
+    <Compile Include="App_Code\Model\Comment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="register.aspx.cs">
       <DependentUpon>register.aspx</DependentUpon>
