@@ -37,10 +37,19 @@ namespace Fastagram.App_Code
             SqlParameter para1 = new SqlParameter("@un", SqlDbType.NVarChar);
             para1.Value = userName;
             SqlParameter para2 = new SqlParameter("@pw", SqlDbType.NVarChar);
-            para1.Value = password;
+            para2.Value = password;
             DataTable data = ExecuteSelect(sql, para1, para2);
             return data.Rows.Count == 1;
         }
-        
+        public static bool AddUser(string userName, string password)
+        {
+            string sql = @"insert into [User] (UserName, Password)
+                           values(@un, @pw)";
+            SqlParameter para1 = new SqlParameter("@un", SqlDbType.NVarChar);
+            para1.Value = userName;
+            SqlParameter para2 = new SqlParameter("@pw", SqlDbType.NVarChar);
+            para2.Value = password;
+            return ExecuteUpdate(sql, para1, para2) ==1;
+        }
     }
 }

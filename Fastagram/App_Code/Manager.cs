@@ -7,5 +7,9 @@ namespace Fastagram.App_Code
         {
             return DataAccess.IsUserValid(userName, password);
         }
+        public static bool AddUser(string userName, string password)
+        {
+            return DataAccess.AddUser(userName, password);
+        }
     }
 }
