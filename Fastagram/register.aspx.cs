@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Fastagram.App_Code;
+using System;
 
 namespace Fastagram
 {
@@ -16,7 +12,15 @@ namespace Fastagram
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-
+            if (txtPassword.Text == txtRePassword.Text)
+            {
+                Manager.AddUser(txtUserName.Text, txtPassword.Text);
+                lbMessage.Text = "Register successfully! You can now login!";
+            }
+            else
+            {
+                lbMessage.Text = $"Your {txtUserName.Text} is already exist!";
+            }
         }
     }
 }

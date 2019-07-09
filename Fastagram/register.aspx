@@ -11,13 +11,13 @@
         <asp:Label ID="lbMessage" runat="server" Text=""></asp:Label>
         <br />
         <asp:Label ID="lbUserName" runat="server" Text="User Name:"></asp:Label>
-        <asp:TextBox ID="txtUserName" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtUserName" runat="server" required="true"></asp:TextBox>
         <br />
         <asp:Label ID="lbPassword" runat="server" Text="Password:"></asp:Label>
-        <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtPassword" runat="server" required="true"></asp:TextBox>
         <br />
         <asp:Label ID="lbRePassword" runat="server" Text="Re-enter password:"></asp:Label>
-        <asp:TextBox ID="txtRePassword" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtRePassword" runat="server" required="true"></asp:TextBox>
         <br />
         <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click"/>
     </form>
