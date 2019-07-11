@@ -98,7 +98,7 @@ namespace Fastagram.App_Code.Data
             DataTable data = ExecuteSelect(sql, para1);
             foreach (DataRow row in data.Rows)
             {
-                int id = Convert.ToInt32(row["Id"]);
+                int id = Convert.ToInt32(row["UserId"]);
                 string name = row["UserName"].ToString();
                 string avatar = row["Avatar"].ToString();
                 return new User(id, name, avatar);
