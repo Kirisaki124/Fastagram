@@ -38,9 +38,9 @@ namespace Fastagram.App_Code.Data
         {
             return DataAccess.AddComment(userId, postId, comment);
         }
-        public static bool AddPost(int userId, string image, string content, DateTime dateCreated)
+        public static bool AddPost(int userId, string image, string content)
         {
-            return DataAccess.AddPost(userId, image, content, dateCreated);
+            return DataAccess.AddPost(userId, image, content);
         }
     }
 }
