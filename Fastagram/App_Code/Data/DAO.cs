@@ -197,25 +197,23 @@ namespace Fastagram.App_Code.Data
             para1.Value = postId;
             SqlParameter para2 = new SqlParameter("@uid", SqlDbType.Int);
             para2.Value = userId;
-            SqlParameter para3 = new SqlParameter("@pid", SqlDbType.NVarChar);
+            SqlParameter para3 = new SqlParameter("@com", SqlDbType.NVarChar);
             para3.Value = comment;
 
             return ExecuteUpdate(sql, para1, para2, para3) == 1;
         }
-        public static bool AddPost (int userId, string image, string content, DateTime dateCreated)
+        public static bool AddPost (int userId, string image, string content)
         {
             string sql = @"insert into Post (UserID, Image, Content, DateCreated)
-                            values (@uid, @img, @con, @date)";
+                            values (@uid, @img, @con, GETDATE())";
             SqlParameter para1 = new SqlParameter("@uid", SqlDbType.Int);
             para1.Value = userId;
             SqlParameter para2 = new SqlParameter("@img", SqlDbType.NVarChar);
             para2.Value = image;
             SqlParameter para3 = new SqlParameter("@con", SqlDbType.NVarChar);
             para3.Value = content;
-            SqlParameter para4 = new SqlParameter("@con", SqlDbType.DateTime);
-            para3.Value = dateCreated;
 
-            return ExecuteUpdate(sql, para1, para2, para3, para4) == 1;
+            return ExecuteUpdate(sql, para1, para2, para3) == 1;
         }
     }
 }
