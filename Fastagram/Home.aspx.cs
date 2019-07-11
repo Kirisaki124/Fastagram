@@ -40,7 +40,8 @@ namespace Fastagram
             {
                 try
                 {
-                    Manager.AddPost(1, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, "testing content");
+                              // userId                      image name                                content        dateCreated
+                    Manager.AddPost(1, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, "testing content", dateCreated);
                     string imgPath = Path.Combine(path, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension);
                     fuImage.SaveAs(imgPath);
                 }
