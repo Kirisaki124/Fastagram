@@ -9,8 +9,11 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg"/>
+            <asp:Button ID="btnUpload" runat="server" Text="Button" OnClick="btnUpload_Click" />
         </div>
         <asp:Button ID="btnSignout" runat="server" Text="Signout" OnClick="btnSignout_Click"/>
     </form>
+
 </body>
 </html>
