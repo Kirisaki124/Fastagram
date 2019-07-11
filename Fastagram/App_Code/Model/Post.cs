@@ -12,7 +12,9 @@ namespace Fastagram.App_Code.Model
         public string Image { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        public Post(int id, int userid, string image, string content, DateTime date)
+        public int LikeCount { get; set; }
+        public List<Comment> Comments { get; set; }
+        public Post(int id, int userid, string image, string content, DateTime date, int likecount, List<Comment> comments)
         {
             Id = id;
             UserId = userid;

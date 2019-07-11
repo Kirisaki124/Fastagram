@@ -73,10 +73,12 @@ namespace Fastagram.App_Code.Data
             {
                 int id = Convert.ToInt32(row["PostId"]);
                 int userId = Convert.ToInt32(row["UserID"]);
+                int likeCount = GetLikeByPost(id);
+                List<Comment> comments = GetCommentByPost(id);
                 string image = row["Image"].ToString();
                 string content = row["Content"].ToString();
                 DateTime date = Convert.ToDateTime(row["DateCreated"]);
-                posts.Add(new Post(id, userId, image, content, date));
+                posts.Add(new Post(id, userId, image, content, date, likeCount, comments));
             }
             return posts;
         }
@@ -102,6 +104,118 @@ namespace Fastagram.App_Code.Data
                 return new User(id, name, avatar);
             }
             return null;
+        }
+        public static List<Post> GetPostByUser (int userId, int page)
+        {
+            List<Post> posts = new List<Post>();
+
+            string sql = @"select *
+                           from (select ROW_NUMBER() over (order by DateCreated) as rownum ,*
+                           from Post 
+                           )as a
+                           where UserID = @uid and rownum between @min and @max";
+            SqlParameter para1 = new SqlParameter("@un", SqlDbType.Int);
+            para1.Value = (page - 1) * MaxPostPerPage;
+            SqlParameter para2 = new SqlParameter("@pw", SqlDbType.Int);
+            para2.Value = page * MaxPostPerPage;
+            SqlParameter para3 = new SqlParameter("@uid", SqlDbType.Int);
+            para3.Value = userId;
+
+            DataTable dt = ExecuteSelect(sql, para1, para2);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int id = Convert.ToInt32(row["PostId"]);
+                int likeCount = GetLikeByPost(id);
+                List<Comment> comments = GetCommentByPost(id);
+                string image = row["Image"].ToString();
+                string content = row["Content"].ToString();
+                DateTime date = Convert.ToDateTime(row["DateCreated"]);
+                posts.Add(new Post(id, userId, image, content, date, likeCount, comments));
+            }
+            return posts;
+        }
+        private static int GetLikeByPost (int postId)
+        {
+            string sql = @"select count(*) [Like Count]
+                            from [Like]
+                            where PostID = @pid";
+            SqlParameter para1 = new SqlParameter("@pid", SqlDbType.Int);
+            para1.Value = postId;
+
+            DataTable dt = ExecuteSelect(sql, para1);
+
+            return Convert.ToInt32(dt.Rows[0]["Like Count"]);
+            
+        }
+        private static List<Comment> GetCommentByPost (int postId)
+        {
+            List<Comment> comments = new List<Comment>();
+            string sql = @"select * from Comment where PostID = @pid";
+            SqlParameter para1 = new SqlParameter("@pid", SqlDbType.Int);
+            para1.Value = postId;
+
+            DataTable dt = ExecuteSelect(sql, para1);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int id = Convert.ToInt32(row["CommentID"]);
+                int userId = Convert.ToInt32(row["UserID"]);
+                string content = row["content"].ToString();
+                DateTime dateCreated = Convert.ToDateTime(row["DateCreated"]);
+                comments.Add(new Comment(id, userId, postId, content, dateCreated));
+            }
+            return comments;
+        }
+        public static bool ToggleLike (int postId, int userId)
+        {
+            string sql = "select * from [like] where PostID = @pid and UserID = @pid";
+            SqlParameter para1 = new SqlParameter("@pid", SqlDbType.Int);
+            para1.Value = postId;
+            SqlParameter para2 = new SqlParameter("@uid", SqlDbType.Int);
+            para2.Value = userId;
+
+            DataTable dt = ExecuteSelect(sql, para1, para2);
+            
+            if(dt.Rows.Count == 1)
+            {
+                sql = "delete from [like] where PostID =@pid and UserID =@pid ";
+                return ExecuteUpdate(sql, para1, para2) == 1;
+            }
+            else
+            {
+                sql = @"insert into [Like]
+                        values (@pid,@uid)";
+                return ExecuteUpdate(sql, para1, para2) == 1;
+            }
+        }
+        public static bool AddComment (int userId, int postId, string comment)
+        {
+            string sql = @"insert into Comment (PostID,UserID,Content,DateCreated)
+                            values (@pid, @uid, @com, GETDATE())";
+            SqlParameter para1 = new SqlParameter("@pid", SqlDbType.Int);
+            para1.Value = postId;
+            SqlParameter para2 = new SqlParameter("@uid", SqlDbType.Int);
+            para2.Value = userId;
+            SqlParameter para3 = new SqlParameter("@pid", SqlDbType.NVarChar);
+            para3.Value = comment;
+
+            return ExecuteUpdate(sql, para1, para2, para3) == 1;
+        }
+        public static bool AddPost (int userId, string image, string content, DateTime dateCreated)
+        {
+            string sql = @"insert into Post (UserID, Image, Content, DateCreated)
+                            values (@uid, @img, @con, @date)";
+            SqlParameter para1 = new SqlParameter("@uid", SqlDbType.Int);
+            para1.Value = userId;
+            SqlParameter para2 = new SqlParameter("@img", SqlDbType.NVarChar);
+            para2.Value = image;
+            SqlParameter para3 = new SqlParameter("@con", SqlDbType.NVarChar);
+            para3.Value = content;
+            SqlParameter para4 = new SqlParameter("@con", SqlDbType.DateTime);
+            para3.Value = dateCreated;
+
+            return ExecuteUpdate(sql, para1, para2, para3, para4) == 1;
         }
     }
 }

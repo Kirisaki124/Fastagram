@@ -1,4 +1,6 @@
 ﻿using Fastagram.App_Code.Model;
+using System;
+using System.Collections.Generic;
 
 namespace Fastagram.App_Code.Data
 {
@@ -20,6 +22,25 @@ namespace Fastagram.App_Code.Data
         {
             return DataAccess.GetUserByName(userName);
         }
-
+        public static List<Post> GetPostByPage (int page)
+        {
+            return DataAccess.GetPostByPage(page);
+        }
+        public static List<Post> GetPostByUser (int userID, int page)
+        {
+            return DataAccess.GetPostByUser(userID, page);
+        }
+        public static bool ToggleLike (int postId, int userId)
+        {
+            return DataAccess.ToggleLike(postId, userId);
+        }
+        public static bool AddComment(int userId, int postId, string comment)
+        {
+            return DataAccess.AddComment(userId, postId, comment);
+        }
+        public static bool AddPost(int userId, string image, string content, DateTime dateCreated)
+        {
+            return DataAccess.AddPost(userId, image, content, dateCreated);
+        }
     }
 }
