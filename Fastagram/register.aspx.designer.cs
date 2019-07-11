@@ -13,15 +13,6 @@ namespace Fastagram {
     public partial class Register {
         
         /// <summary>
-        /// frmRegister control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmRegister;
-        
-        /// <summary>
         /// lbMessage control.
         /// </summary>
         /// <remarks>
@@ -31,13 +22,13 @@ namespace Fastagram {
         protected global::System.Web.UI.WebControls.Label lbMessage;
         
         /// <summary>
-        /// lbUserName control.
+        /// frmRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmRegister;
         
         /// <summary>
         /// txtUserName control.
@@ -49,15 +40,6 @@ namespace Fastagram {
         protected global::System.Web.UI.WebControls.TextBox txtUserName;
         
         /// <summary>
-        /// lbPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbPassword;
-        
-        /// <summary>
         /// txtPassword control.
         /// </summary>
         /// <remarks>
@@ -65,15 +47,6 @@ namespace Fastagram {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
-        /// <summary>
-        /// lbRePassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbRePassword;
         
         /// <summary>
         /// txtRePassword control.

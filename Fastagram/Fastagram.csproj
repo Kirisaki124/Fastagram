@@ -1685,6 +1685,7 @@
     <Content Include="App_Themes\Theme\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="App_Themes\Theme\fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="App_Themes\Theme\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="App_Themes\Theme\register.css" />
     <Content Include="App_Themes\Theme\style.css" />
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
