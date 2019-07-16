@@ -17,7 +17,6 @@ namespace Fastagram
         {
             if (Manager.IsUserValid(txtUserName.Text, txtPassword.Text))
             {
-                lbMessage.Text = "You are now logged in!";
                 Session["user"] = Manager.GetUserByName(txtUserName.Text);
                 Response.Redirect("Home.aspx");
             }

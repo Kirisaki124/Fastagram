@@ -17,7 +17,6 @@ namespace Fastagram
                 if (txtPassword.Text == txtRePassword.Text)
                 {
                     Manager.AddUser(txtUserName.Text, txtPassword.Text);
-                    lbMessage.Text = "Register successfully! You can now login!";
                 }
                 else
                 {
