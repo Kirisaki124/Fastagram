@@ -50,7 +50,7 @@ namespace Fastagram.App_Code.Data
         {
             return DataAccess.UpdatePost(postId, content, image);
         }
-        public static User GetUsrByID(int userId)
+        public static User GetUserByID(int userId)
         {
             return DataAccess.GetUserByID(userId);
         }

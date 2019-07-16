@@ -278,7 +278,7 @@ namespace Fastagram.App_Code.Data
         }
         public static User GetUserByID (int userId)
         {
-            string sql = " select * from [User] where UserId = @ uid";
+            string sql = " select * from [User] where UserId = @uid";
             SqlParameter para1 = new SqlParameter("@uid", SqlDbType.Int);
             para1.Value = userId;
             DataTable data = ExecuteSelect(sql, para1);

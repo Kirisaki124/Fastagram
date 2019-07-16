@@ -1,6 +1,8 @@
 ﻿using Fastagram.App_Code.Data;
+using Fastagram.App_Code.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,9 @@ namespace Fastagram
 {
     public partial class Home : System.Web.UI.Page
     {
+        public List<Post> listPost = Manager.GetPostByPage(1);
+        //public List<Comment> comments = Manager;
+        public string imagePath = ConfigurationManager.ConnectionStrings["ImagePath"].ToString() + "/";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] == null)
