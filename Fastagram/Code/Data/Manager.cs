@@ -46,6 +46,17 @@ namespace Fastagram.App_Code.Data
         {
             return DataAccess.SearchPost(content);
         }
-
+        public static bool UpdatePost(int postId, string content, string image)
+        {
+            return DataAccess.UpdatePost(postId, content, image);
+        }
+        public static User GetUsrByID(int userId)
+        {
+            return DataAccess.GetUserByID(userId);
+        }
+        public static bool DeletePostById(int postId)
+        {
+            return DataAccess.DelPostById(postId);
+        }
     }
 }

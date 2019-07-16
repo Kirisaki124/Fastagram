@@ -15,13 +15,14 @@
             <asp:Label ID="lbPostCount" runat="server" Text="Label"></asp:Label>
             <asp:Label ID="lbUserName" runat="server" Text="Label"></asp:Label>
         </div>
-        <asp:Panel ID="panelPost" runat="server">
-        </asp:Panel>
-        <%--<% foreach (Post post in posts)
+
+        <% foreach (Post post in posts)
           {
         %>
-            <asp:Image  runat="server" ImageUrl="<% Path.Combine("Images", post.Image); %>"/>
-        <%} %>--%>
+        <div>
+            <img src="<%= Path.Combine("Images", post.Image) %>" />
+        </div>
+        <%} %>
         <div>
         </div>
     </form>

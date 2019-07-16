@@ -21,6 +21,8 @@ namespace Fastagram.App_Code.Model
             Image = image;
             Content = content;
             Date = date;
+            LikeCount = likecount;
+            Comments = comments;
         }
     }
 }
