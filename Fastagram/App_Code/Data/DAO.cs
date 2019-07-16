@@ -62,9 +62,9 @@ namespace Fastagram.App_Code.Data
                            from Post 
                            )as a
                            where rownum between @min and @max";
-            SqlParameter para1 = new SqlParameter("@un", SqlDbType.Int);
+            SqlParameter para1 = new SqlParameter("@min", SqlDbType.Int);
             para1.Value = (page - 1) * MaxPostPerPage;
-            SqlParameter para2 = new SqlParameter("@pw", SqlDbType.Int);
+            SqlParameter para2 = new SqlParameter("@max", SqlDbType.Int);
             para2.Value = page * MaxPostPerPage;
 
             DataTable dt = ExecuteSelect(sql, para1, para2);
