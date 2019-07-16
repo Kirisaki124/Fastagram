@@ -215,5 +215,29 @@ namespace Fastagram.App_Code.Data
 
             return ExecuteUpdate(sql, para1, para2, para3) == 1;
         }
+        public static List<Post> SearchPost(string content)
+        {
+            List<Post> posts = new List<Post>();
+            string sql = @"select *
+                        from Post
+                        where Content like @con ";
+            SqlParameter para1 = new SqlParameter("@con", SqlDbType.Int);
+            para1.Value = content;
+
+            DataTable dt = ExecuteSelect(sql, para1);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int id = Convert.ToInt32(row["PostID"]);
+                int userId = Convert.ToInt32(row["UserID"]);
+                int likeCount = GetLikeByPost(id);
+                List<Comment> comments = GetCommentByPost(id);
+                string image = row["Image"].ToString();
+                string con = row["Content"].ToString();
+                DateTime date = Convert.ToDateTime(row["DateCreated"]);
+                posts.Add(new Post(id, userId, image, content, date, likeCount, comments));
+            }
+            return posts;
+        }
     }
 }

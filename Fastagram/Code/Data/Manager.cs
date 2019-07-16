@@ -42,5 +42,10 @@ namespace Fastagram.App_Code.Data
         {
             return DataAccess.AddPost(userId, image, content);
         }
+        public static List<Post> SearchPost (string content)
+        {
+            return DataAccess.SearchPost(content);
+        }
+
     }
 }
