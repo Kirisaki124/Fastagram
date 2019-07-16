@@ -114,14 +114,14 @@ namespace Fastagram.App_Code.Data
                            from Post 
                            )as a
                            where UserID = @uid and rownum between @min and @max";
-            SqlParameter para1 = new SqlParameter("@un", SqlDbType.Int);
+            SqlParameter para1 = new SqlParameter("@min", SqlDbType.Int);
             para1.Value = (page - 1) * MaxPostPerPage;
-            SqlParameter para2 = new SqlParameter("@pw", SqlDbType.Int);
+            SqlParameter para2 = new SqlParameter("@max", SqlDbType.Int);
             para2.Value = page * MaxPostPerPage;
             SqlParameter para3 = new SqlParameter("@uid", SqlDbType.Int);
             para3.Value = userId;
 
-            DataTable dt = ExecuteSelect(sql, para1, para2);
+            DataTable dt = ExecuteSelect(sql, para1, para2, para3);
 
             foreach (DataRow row in dt.Rows)
             {
