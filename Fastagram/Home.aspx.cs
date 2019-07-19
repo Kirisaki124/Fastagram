@@ -1,5 +1,5 @@
-﻿using Fastagram.App_Code.Data;
-using Fastagram.App_Code.Model;
+﻿using Fastagram.Code.Data;
+using Fastagram.Code.Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

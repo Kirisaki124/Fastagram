@@ -1,11 +1,11 @@
 ﻿using System;
-using Fastagram.App_Code.Data;
+using Fastagram.Code.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Fastagram.App_Code.Model;
+using Fastagram.Code.Model;
 using System.IO;
 
 namespace Fastagram

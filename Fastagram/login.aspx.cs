@@ -1,4 +1,4 @@
-﻿using Fastagram.App_Code.Data;
+﻿using Fastagram.Code.Data;
 using System;
 
 namespace Fastagram

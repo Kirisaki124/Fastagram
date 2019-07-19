@@ -13,7 +13,10 @@ namespace Fastagram
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.MapPageRoute("Login", "login", "~/Login.aspx");
+            routes.MapPageRoute("Detail", "detail", "~/Detail.aspx");
+            routes.MapPageRoute("Profile", "profile", "~/Profile.aspx");
             routes.MapPageRoute("Default", "", "~/Home.aspx");
+
         }
 
         protected void Application_Start(object sender, EventArgs e)

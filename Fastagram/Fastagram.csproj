@@ -150,6 +150,7 @@
     <Content Include="App_Themes\Theme\fontawesome\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
     <Content Include="Chat.aspx" />
+    <Content Include="Detail.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -1751,6 +1752,13 @@
     <Compile Include="Code\Model\Comment.cs" />
     <Compile Include="Code\Socket\NotifyHub.cs" />
     <Compile Include="Code\Socket\Startup.cs" />
+    <Compile Include="Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

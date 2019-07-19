@@ -1,8 +1,8 @@
-﻿using Fastagram.App_Code.Model;
+﻿using Fastagram.Code.Model;
 using System;
 using System.Collections.Generic;
 
-namespace Fastagram.App_Code.Data
+namespace Fastagram.Code.Data
 {
     public class Manager
     {

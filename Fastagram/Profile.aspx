@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Fastagram.Profile" %>
 
-<%@ Import Namespace="Fastagram.App_Code.Model" %>
+<%@ Import Namespace="Fastagram.Code.Model" %>
 <%@ Import Namespace="System.IO" %>
 <!DOCTYPE html>
 

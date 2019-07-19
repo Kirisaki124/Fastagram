@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using Fastagram.App_Code.Model;
+using Fastagram.Code.Model;
 
-namespace Fastagram.App_Code.Data
+namespace Fastagram.Code.Data
 {
     public class DataAccess
     {
