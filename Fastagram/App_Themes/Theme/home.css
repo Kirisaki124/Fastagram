@@ -1,0 +1,70 @@
+﻿body {
+    background: url('https://source.unsplash.com/1920x1080/?nature,landscape') center;
+}
+
+.post {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+    background: rgba(255, 255, 255, .98);
+}
+
+.user-name {
+    padding: 0px;
+    margin: 0px;
+}
+
+.date {
+    margin: 0px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.image {
+    max-width: 100%;
+    max-height: 50%;
+}
+
+.upload {
+    text-align: center;
+}
+
+.post-action {
+    display: flex;
+    margin-top: 10px;
+}
+
+.like, .comment {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.like:hover, .comment:hover {
+    background: whitesmoke;
+    cursor: pointer;
+}
+
+.new-comment {
+    display: flex;
+    margin-top: 10px;
+}
+
+.new-comment input {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    flex-grow: 1;
+    margin-right: 10px;
+    background: #f2f3f5;
+}

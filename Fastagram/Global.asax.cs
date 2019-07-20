@@ -16,6 +16,7 @@ namespace Fastagram
             routes.MapPageRoute("Detail", "detail", "~/Detail.aspx");
             routes.MapPageRoute("Profile", "profile", "~/Profile.aspx");
             routes.MapPageRoute("Default", "", "~/Home.aspx");
+            routes.MapPageRoute("Home", "home", "~/Home.aspx");
 
         }
 

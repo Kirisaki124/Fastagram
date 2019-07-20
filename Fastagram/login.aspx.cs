@@ -9,7 +9,7 @@ namespace Fastagram
         {
             if (Session["user"] != null)
             {
-                Response.Redirect("Home.aspx");
+                Response.Redirect("home");
             }
         }
 
@@ -18,7 +18,7 @@ namespace Fastagram
             if (Manager.IsUserValid(txtUserName.Text, txtPassword.Text))
             {
                 Session["user"] = Manager.GetUserByName(txtUserName.Text);
-                Response.Redirect("Home.aspx");
+                Response.Redirect("home");
             }
             else
             {

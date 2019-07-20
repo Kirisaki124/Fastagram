@@ -18,16 +18,19 @@ namespace Fastagram
         public string imagePath = ConfigurationManager.ConnectionStrings["ImagePath"].ToString() + "/";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("Login.aspx");
+                if (Session["user"] == null)
+                {
+                    Response.Redirect("login");
+                }
             }
         }
 
         protected void btnSignout_Click(object sender, EventArgs e)
         {
             Session.Remove("user");
-            Response.Redirect("Login.aspx");
+            Response.Redirect("login");
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
@@ -46,7 +49,7 @@ namespace Fastagram
                 try
                 {
                               // userId                      image name                                content
-                    Manager.AddPost(1, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, "testing content");
+                    Manager.AddPost((Session["user"] as User).Id, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, "testing content");
                     string imgPath = Path.Combine(path, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension);
                     fuImage.SaveAs(imgPath);
                 }

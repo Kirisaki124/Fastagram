@@ -149,6 +149,7 @@
     <Content Include="App_Themes\Theme\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="App_Themes\Theme\fontawesome\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
+    <Content Include="App_Themes\Theme\home.css" />
     <Content Include="Chat.aspx" />
     <Content Include="Detail.aspx" />
     <Content Include="Global.asax" />
