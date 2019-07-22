@@ -22,5 +22,11 @@ namespace Fastagram.Code.Socket
             Manager.AddComment(Convert.ToInt32(userId), Convert.ToInt32(id), comment); 
             
         }
+        public void notifyLikePost(string postId, string userId)
+        {
+            Clients.All.notifyLikePost(postId, userId);
+            Manager.ToggleLike(Convert.ToInt32(postId), Convert.ToInt32(userId));
+
+        }
     }
 }

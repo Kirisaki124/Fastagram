@@ -10,6 +10,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="upload">
+                <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" />
+                <asp:Button ID="btnUpload" runat="server" Text="Post" OnClick="btnUpload_Click" />
+            </div>
         <div>
             <asp:Image ID="ImgAvatar" runat="server" />
             <asp:Label ID="lbPostCount" runat="server" Text="Label"></asp:Label>

@@ -49,7 +49,7 @@ namespace Fastagram
                 try
                 {
                               // userId                      image name                                content
-                    Manager.AddPost((Session["user"] as User).Id, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, "testing content");
+                    Manager.AddPost((Session["user"] as User).Id, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, contentUpload.Text);
                     string imgPath = Path.Combine(path, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension);
                     fuImage.SaveAs(imgPath);
                 }

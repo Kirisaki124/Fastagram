@@ -23,6 +23,10 @@ namespace Fastagram.Code.Data
             adapter.SelectCommand = command;
             DataSet ds = new DataSet();
             adapter.Fill(ds);
+            foreach (SqlParameter p in Params)
+            {
+            }
+            command.Parameters.Clear();
             return ds.Tables[0];
         }
         public static int ExecuteUpdate(string sql, params SqlParameter[] Params)
@@ -169,25 +173,27 @@ namespace Fastagram.Code.Data
         }
         public static bool ToggleLike(int postId, int userId)
         {
-            string sql = "select * from [like] where PostID = @pid and UserID = @pid";
+            string sql = "select * from [like] where PostID = @pid and UserID = @uid";
             SqlParameter para1 = new SqlParameter("@pid", SqlDbType.Int);
             para1.Value = postId;
             SqlParameter para2 = new SqlParameter("@uid", SqlDbType.Int);
             para2.Value = userId;
 
             DataTable dt = ExecuteSelect(sql, para1, para2);
+            
 
             if (dt.Rows.Count == 1)
             {
-                sql = "delete from [like] where PostID =@pid and UserID =@pid ";
+                sql = "delete from [like] where PostID =@pid and UserID =@uid ";
                 return ExecuteUpdate(sql, para1, para2) == 1;
             }
-            else
+            else if (dt.Rows.Count == 0)
             {
                 sql = @"insert into [Like]
                         values (@pid,@uid)";
                 return ExecuteUpdate(sql, para1, para2) == 1;
             }
+            return false;
         }
         public static bool AddComment(int userId, int postId, string comment)
         {
