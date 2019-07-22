@@ -59,6 +59,7 @@ namespace Fastagram
                     Console.WriteLine(ex.Message);
                 }
             }
+            Response.Redirect("Home");
         }
 
     }

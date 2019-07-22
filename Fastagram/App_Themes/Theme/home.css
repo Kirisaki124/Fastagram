@@ -1,5 +1,6 @@
 ﻿body {
     background: url('https://source.unsplash.com/1920x1080/?nature,landscape') center;
+    background-attachment: fixed;
 }
 
 .post {

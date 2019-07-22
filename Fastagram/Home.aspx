@@ -20,8 +20,8 @@
 
     $(() => {
 
-        chat.client.addComment = (message) => {
-            alert("ell")
+        chat.client.notifyNewComment = (postId, userId,userName, comment) => {
+            $("#comment" + postId).append(`<div><h1>${userName}</h1><p>${comment}</p></div >`)
         }
 
         $.connection.hub.start().done(() => {
@@ -37,9 +37,10 @@
     });
 
     function addComment(id, userId) {
-        alert('lffsdfsd')
         var comment = $('#post' + id).val();
-        chat.server.addComment(id, userId, comment);
+        chat.server.notifyNewComment(id, userId, comment);
+        
+        //window.location = "home"
         // Clear text box and reset focus for next comment.
     }
 
@@ -53,49 +54,52 @@
                 <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" />
                 <asp:Button ID="btnUpload" runat="server" Text="Post" OnClick="btnUpload_Click" />
             </div>
+        </form>
+        <%
+            foreach (Post item in listPost)
+            {
+        %>
+        <div class="post">
+            <h3 class="user-name"><%= Manager.GetUserByID(item.UserId).Name %></h3>
+            <p class="date"><%= item.Date %></p>
 
-            <%
-                foreach (Post item in listPost)
-                {
-            %>
-            <div class="post">
-                <h3 class="user-name"><%= Manager.GetUserByID(item.UserId).Name %></h3>
-                <p class="date"><%= item.Date %></p>
+            <p><%= item.Content %></p>
+            <div class="image-container">
+                <a href="Detail?id=<%= item.Id %>">
+                    <img class="image" src='<%= imagePath + item.Image %>' />
+                </a>
+            </div>
 
-                <p><%= item.Content %></p>
-                <div class="image-container">
-                    <a href="Detail?id=<%= item.Id %>">
-                        <img class="image" src='<%= imagePath + item.Image %>' />
-                    </a>
-                </div>
+            <div class="post-action">
+                <div class="like">Like</div>
+                <div class="comment">Comment</div>
+            </div>
 
-                <div class="post-action">
-                    <div class="like">Like</div>
-                    <div class="comment">Comment</div>
-                </div>
-
+            <div id="comment<%=item.Id %>">
+                <%
+                    foreach (Comment comment in item.Comments)
+                    {
+                %>
                 <div>
-                    <%
-                        foreach (Comment comment in item.Comments)
-                        {
-                    %>
                     <h1><%= Manager.GetUserByID(comment.UserId).Name %></h1>
                     <p><%= comment.Content %></p>
-                    <%
-                        }
-                    %>
                 </div>
-
-                <div class="new-comment">
-                    <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." onkeyup=""/>
-                    <button onclick='addComment(<%= item.Id %>, <%= ((User) Session["user"]).Id %>)'>comment</button>
-                </div>
+                <%
+                    }
+                %>
             </div>
-            <%
 
-                }
-            %>
-        </form>
+            <div class="new-comment">       
+                
+                    <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." />
+                    <button onclick='addComment(<%= item.Id %>, <%= ((User) Session["user"]).Id %>)'>comment</button>
+                
+            </div>
+        </div>
+        <%
+
+            }
+        %>
     </div>
 </body>
 </html>
