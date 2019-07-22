@@ -58,5 +58,10 @@ namespace Fastagram.Code.Data
         {
             return DataAccess.DelPostById(postId);
         }
+        public static bool ChangeAvatar(string avaLink, int userId)
+        {
+            return DataAccess.ChangeAvatar(avaLink, userId);
+        }
+
     }
 }

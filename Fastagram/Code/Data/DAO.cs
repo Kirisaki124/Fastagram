@@ -298,6 +298,17 @@ namespace Fastagram.Code.Data
             para1.Value = postId;
             return ExecuteUpdate(sql, para1) == 1;
         }
+        public static bool ChangeAvatar(string avaLink, int userId)
+        {
+            string sql = @"update [User]
+                        set Avatar = @ava
+                        where UserId = @uid ";
+            SqlParameter para1 = new SqlParameter("@uid", SqlDbType.Int);
+            para1.Value = userId;
+            SqlParameter para2 = new SqlParameter("@ava", SqlDbType.Int);
+            para1.Value = avaLink;
 
+            return ExecuteUpdate(sql, para1, para2) == 1;
+        }
     }
 }
