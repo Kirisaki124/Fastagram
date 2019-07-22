@@ -298,5 +298,6 @@ namespace Fastagram.Code.Data
             para1.Value = postId;
             return ExecuteUpdate(sql, para1) == 1;
         }
+
     }
 }
