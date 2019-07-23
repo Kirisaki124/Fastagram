@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Fastagram.Profile" %>
 
 <%@ Import Namespace="Fastagram.Code.Model" %>
+<%@ Import Namespace="Fastagram.Code.Data" %>
 <%@ Import Namespace="System.IO" %>
 <!DOCTYPE html>
 
@@ -9,7 +10,10 @@
     <title></title>
 </head>
 <body>
+    
     <form id="form1" runat="server">
+        <% User user = Manager.GetUserByID((Session["user"] as User).Id); %>
+        <h1><%= user.Name %></h1>
         <div class="upload">
                 <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" />
                 <asp:Button ID="btnUpload" runat="server" Text="Post" OnClick="btnUpload_Click" />
