@@ -24,9 +24,11 @@ namespace Fastagram.Code.Socket
         }
         public void notifyLikePost(string postId, string userId)
         {
-            Clients.All.notifyLikePost(postId, userId);
             Manager.ToggleLike(Convert.ToInt32(postId), Convert.ToInt32(userId));
+            int likeCounts = Manager.GetPostById(postId).LikeCount;
+            Clients.All.notifyLikePost(postId, userId, likeCounts);
 
         }
+
     }
 }

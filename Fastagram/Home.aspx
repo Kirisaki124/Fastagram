@@ -28,6 +28,11 @@
                 </div>`);
         }
 
+
+        chat.client.notifyLikePost = (postId, userId, likeCount) => {
+            $("#like" + postId).html(`${likeCount} Like`);
+        }
+
         $.connection.hub.start().done(() => {
             $('#sendmessage').click(() => {
                 // Call the Send method on the hub. 
@@ -75,7 +80,7 @@
             {
         %>
         <div class="post">
-            <h3 class="user-name"><%= Manager.GetUserByID(item.UserId).Name %></h3>
+            <h3 class="user-name"><img src="Avatar/<%= Manager.GetUserByID(item.UserId).Avatar %>"/><%= Manager.GetUserByID(item.UserId).Name %></h3>
             <p class="date"><%= GetPrettyDate(item.Date) %></p>
 
             <p><%= item.Content %></p>
@@ -86,7 +91,7 @@
             </div>
 
             <div class="post-action">
-                <div class="like" onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)">Like</div>
+                <div id="like<%=item.Id %>" class="like" onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)"><%=item.LikeCount %> Like</div>
                 <%--<button onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)">like</button>--%>
                 <div class="comment" onclick='$("#post<%=item.Id %>").focus()'>Comment</div>
             </div>

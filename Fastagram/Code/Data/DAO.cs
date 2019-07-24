@@ -311,8 +311,8 @@ namespace Fastagram.Code.Data
                         where UserId = @uid ";
             SqlParameter para1 = new SqlParameter("@uid", SqlDbType.Int);
             para1.Value = userId;
-            SqlParameter para2 = new SqlParameter("@ava", SqlDbType.Int);
-            para1.Value = avaLink;
+            SqlParameter para2 = new SqlParameter("@ava", SqlDbType.NVarChar);
+            para2.Value = avaLink;
 
             return ExecuteUpdate(sql, para1, para2) == 1;
         }
