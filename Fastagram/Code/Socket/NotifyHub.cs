@@ -29,11 +29,15 @@ namespace Fastagram.Code.Socket
             List<Post> a = Manager.GetPostByPage(page);
             Clients.Caller.getMorePost(a);
         }
-
-
         public void notifyNewPost()
         {
             Clients.All.notifyNewPost();
+        }
+
+        public void notifyDeletePost(int id)
+        {
+            Manager.DeletePostById(id);
+            Clients.All.notifyDeletePost(id);
         }
     }
 }

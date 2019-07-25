@@ -35,6 +35,7 @@ namespace Fastagram.Code.Data
             command.Parameters.AddRange(Params);
             command.Connection.Open();
             int k = command.ExecuteNonQuery();
+            command.Parameters.Clear();
             command.Connection.Close();
             return k;
         }
@@ -299,9 +300,16 @@ namespace Fastagram.Code.Data
         }
         public static bool DelPostById(int postId)
         {
-            string sql = "delete from Post where PostID = @pid";
             SqlParameter para1 = new SqlParameter("@pid", SqlDbType.Int);
             para1.Value = postId;
+
+            string sql = "delete from [Like] where PostID = @pid";
+            ExecuteUpdate(sql, para1);
+
+            sql = "delete from Comment where PostID = @pid";
+            ExecuteUpdate(sql, para1);
+
+            sql = "delete from Post where PostID = @pid";
             return ExecuteUpdate(sql, para1) == 1;
         }
         public static bool ChangeAvatar(string avaLink, int userId)

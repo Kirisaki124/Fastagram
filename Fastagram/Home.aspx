@@ -41,6 +41,10 @@
             $('#totalNewPost a').html(`${++unreadPostCount} new post(s)`);
         }
 
+        chat.client.notifyDeletePost = (id) => {
+            $("#post-container-" + id).remove();
+        }
+
         chat.client.getMorePost = (posts) => {
             $(posts).each(function () {
                 var html = `
@@ -133,6 +137,12 @@
         chat.server.notifyNewPost();
     }
 
+    function deletePost(id) {
+        if (confirm('Are you sure?') === true) {
+            chat.server.notifyDeletePost(id);
+        }
+    }
+
 </script>
 <body>
     <div class="nav">
@@ -161,7 +171,13 @@
                 foreach (Post item in listPost)
                 {
             %>
-            <div class="post">
+            <div class="post" id="post-container-<%= item.Id %>">
+                <% 
+                    if (item.User.Id == (Session["user"] as User).Id)
+                    {
+                %>
+                <a onclick="deletePost(<%= item.Id %>)" style="float: right" href="#">Delete</a>
+                <% } %>
                 <div class="post-header">
                     <img class="avatar" src="Avatar/<%= item.User.Avatar %>" />
                     <div class="post-header-text">
