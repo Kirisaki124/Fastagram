@@ -12,39 +12,42 @@
     <link rel="stylesheet" href="App_Themes/Theme/Profile.css" />
 </head>
 <body>
-    
+    <div class="nav">
+        <img />
+        <a href="Home">Home</a>
+    </div>
     <form id="form1" runat="server">
         <div class="container">
-            
+
             <div class="user-profile">
                 <div class="c-avatar">
                     <asp:Image CssClass="avatar" ID="ImgAvatar" runat="server" />
                 </div>
-                <div class="c-user-name">
-                    <asp:Label CssClass="user-name" ID="lbUserName" runat="server" Text="Label"></asp:Label>
-                </div>
-                <div class="c-post-count">
-                    <p class="title">Post Count:</p>
-                    <asp:Label CssClass="post-count" ID="lbPostCount" runat="server" Text="Label"></asp:Label>
+                <div class="c-profile">
+                    <div class="c-user-name">
+                        <asp:Label CssClass="user-name" ID="lbUserName" runat="server" Text="Label"></asp:Label>
+                    </div>
+                    <div class="c-post-count">
+                        <p class="title"><asp:Label CssClass="post-count" ID="lbPostCount" runat="server" Text="Label"></asp:Label> Posts</p>
+                        
+                    </div>
                 </div>
             </div>
-            <br />
-            <br />
-            <hr />
-            <div class="upload">
-                <asp:FileUpload  ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" />
+            <% if (id == 0)
+                { %>
+            <div class="up">
+                <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" />
                 <asp:Button ID="btnUpload" runat="server" Text="Change Avatar" OnClick="btnUpload_Click" />
             </div>
-            <hr />
-            <br />
-            <br />
+            <%} %>
+            
             <div class="post-container">
                 <% foreach (Post post in posts)
                     {
                 %>
-                    <a class="detail" href="Detail.aspx?id=<%=post.Id%>">
-                        <img class="post-img" src="<%= Path.Combine("Images", post.Image) %>" />
-                    </a>
+                <a class="detail" href="Detail.aspx?id=<%=post.Id%>">
+                    <img class="post-img" src="<%= Path.Combine("Images", post.Image) %>" />
+                </a>
                 <%} %>
             </div>
         </div>

@@ -62,7 +62,7 @@ namespace Fastagram.Code.Data
         {
             List<Post> posts = new List<Post>();
             string sql = @"select *
-                           from (select ROW_NUMBER() over (order by DateCreated) as rownum ,*
+                           from (select ROW_NUMBER() over (order by DateCreated desc) as rownum ,*
                            from Post 
                            )as a
                            where rownum between @min and @max";
