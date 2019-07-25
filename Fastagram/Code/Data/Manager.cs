@@ -26,9 +26,9 @@ namespace Fastagram.Code.Data
         {
             return DataAccess.GetPostByPage(page);
         }
-        public static List<Post> GetPostByUser (int userID, int page)
+        public static List<Post> GetPostByUser (int userID)
         {
-            return DataAccess.GetPostByUser(userID, page);
+            return DataAccess.GetPostByUser(userID);
         }
         public static bool ToggleLike (int postId, int userId)
         {

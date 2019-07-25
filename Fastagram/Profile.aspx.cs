@@ -37,7 +37,7 @@ namespace Fastagram
                         id = user.Id;
                     }
 
-                    posts = Manager.GetPostByUser(user.Id, 1);
+                    posts = Manager.GetPostByUser(user.Id);
                     path = Path.Combine(path, user.Avatar);
                     ImgAvatar.ImageUrl = path;
                     lbPostCount.Text = posts.Count().ToString();

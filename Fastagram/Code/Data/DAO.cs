@@ -110,7 +110,7 @@ namespace Fastagram.Code.Data
             }
             return null;
         }
-        public static List<Post> GetPostByUser(int userId, int page)
+        public static List<Post> GetPostByUser(int userId)
         {
             List<Post> posts = new List<Post>();
 
@@ -118,15 +118,11 @@ namespace Fastagram.Code.Data
                            from (select ROW_NUMBER() over (order by DateCreated) as rownum ,*
                            from Post 
                            )as a
-                           where UserID = @uid and rownum between @min and @max";
-            SqlParameter para1 = new SqlParameter("@min", SqlDbType.Int);
-            para1.Value = (page - 1) * MaxPostPerPage;
-            SqlParameter para2 = new SqlParameter("@max", SqlDbType.Int);
-            para2.Value = page * MaxPostPerPage;
+                           where UserID = @uid ";
             SqlParameter para3 = new SqlParameter("@uid", SqlDbType.Int);
             para3.Value = userId;
 
-            DataTable dt = ExecuteSelect(sql, para1, para2, para3);
+            DataTable dt = ExecuteSelect(sql, para3);
 
             foreach (DataRow row in dt.Rows)
             {
