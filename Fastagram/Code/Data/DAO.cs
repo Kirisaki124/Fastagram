@@ -9,7 +9,7 @@ namespace Fastagram.Code.Data
 {
     public class DataAccess
     {
-        private static int MaxPostPerPage = 2;
+        private static int MaxPostPerPage = 10;
         static SqlConnection GetConnection()
         {
             string ConnectionString = ConfigurationManager.ConnectionStrings["FastagramDB"].ToString();

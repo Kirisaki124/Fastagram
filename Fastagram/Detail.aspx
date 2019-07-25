@@ -47,7 +47,7 @@
             };
 
         }
-    }  
+    }
 
     $(() => {
 
@@ -60,7 +60,7 @@
                         <span>${comment}</span>
                     </div>
                 </div>`);
-
+            pushNotification('New Comment From Fastagram', userName + ": " + comment);
         }
 
         chat.client.notifyNewPost = () => {
@@ -71,6 +71,11 @@
 
         chat.client.notifyLikePost = (postId, userId, likeCount) => {
             $("#like" + postId).html(`${likeCount} <i class="far fa-thumbs-up"></i> Like`);
+        }
+
+        chat.client.notifyDeletePost = (id) => {
+            $("#post-container-" + id).remove();
+            window.location = "home";
         }
 
         $.connection.hub.start().done(() => {
@@ -104,6 +109,12 @@
             addComment(id, userId);
         }
     }
+
+    function deletePost(id) {
+        if (confirm('Are you sure?') === true) {
+            chat.server.notifyDeletePost(id);
+        }
+    }
 </script>
 
 <body>
@@ -113,58 +124,62 @@
         <a href="home?signout=true" style="float: right; margin-right: 20px;">Sign Out</a>
     </div>
 
-    <div class="container" >
-        <form id="form1" runat="server">
-            <% Post item = Manager.GetPostById(Request.QueryString["id"]); %>
-            <div>
-                <div class="post" style="margin-top: 50px">
-                    <div class="post-header">
-                        <img class="avatar" src="Avatar/<%= item.User.Avatar %>" />
-                        <div class="post-header-text">
-                            <b class="user-name"><%= item.User.Name %></b>
-                            <p class="date"><%= GetPrettyDate(item.Date) %></p>
-                        </div>
+    <div class="container">
+        <% Post item = Manager.GetPostById(Request.QueryString["id"]); %>
+        <div>
+            <div class="post" style="margin-top: 50px" id="post-container-<%= item.Id %>">
+                <% 
+                    if (item.User.Id == (Session["user"] as User).Id)
+                    {
+                %>
+                <a onclick="deletePost(<%= item.Id %>)" style="float: right" href="#">Delete</a>
+                <% } %>
+                <div class="post-header">
+                    <img class="avatar" src="Avatar/<%= item.User.Avatar %>" />
+                    <div class="post-header-text">
+                        <b class="user-name"><%= item.User.Name %></b>
+                        <p class="date"><%= GetPrettyDate(item.Date) %></p>
                     </div>
-
-                    <p><%= item.Content %></p>
-                    <div class="image-container">
-                        <a href="Detail?id=<%= item.Id %>">
-                            <img class="image" src='<%= imagePath + item.Image %>' />
-                        </a>
-                    </div>
-
-                    <div class="post-action">
-                        <div id="like<%=item.Id %>" class="like" onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)"><%=item.LikeCount %> <i class="far fa-thumbs-up"></i>Like</div>
-                        <%--<button onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)">like</button>--%>
-                        <div class="comment" onclick='$("#post<%=item.Id %>").focus()'><i class="far fa-comment-alt"></i>Comment</div>
-                    </div>
-
-                    <div id="comment<%=item.Id %>" class="comment-box">
-                        <%
-                            foreach (Comment comment in item.Comments)
-                            {
-                        %>
-                        <div class="comment-bubble">
-                            <img class="avatar" src="Avatar/<%= comment.User.Avatar %>" />
-                            <div class="comment-bubble-text">
-                                <a href="Profile.aspx?id=<%= comment.User.Id %>"><span><b><%= comment.User.Name %></b></span></a>
-                                <span><%= comment.Content %></span>
-                            </div>
-                        </div>
-                        <%
-                            }
-                        %>
-                    </div>
-                    <div style="display: flex; margin-top: 10px; align-items: center;">
-                        <img class="avatar" src="Avatar/<%= ((User)Session["user"]).Avatar %>" />
-                        <div class="new-comment">
-                            <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." onkeyup="checkEnter(event, <%= item.Id %>, <%= ((User) Session["user"]).Id %>)" />
-                        </div>
-                    </div>
-
                 </div>
+
+                <p><%= item.Content %></p>
+                <div class="image-container">
+                    <a href="Detail?id=<%= item.Id %>">
+                        <img class="image" src='<%= imagePath + item.Image %>' />
+                    </a>
+                </div>
+
+                <div class="post-action">
+                    <div id="like<%=item.Id %>" class="like" onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)"><%=item.LikeCount %> <i class="far fa-thumbs-up"></i>Like</div>
+                    <%--<button onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)">like</button>--%>
+                    <div class="comment" onclick='$("#post<%=item.Id %>").focus()'><i class="far fa-comment-alt"></i>Comment</div>
+                </div>
+
+                <div id="comment<%=item.Id %>" class="comment-box">
+                    <%
+                        foreach (Comment comment in item.Comments)
+                        {
+                    %>
+                    <div class="comment-bubble">
+                        <img class="avatar" src="Avatar/<%= comment.User.Avatar %>" />
+                        <div class="comment-bubble-text">
+                            <a href="Profile.aspx?id=<%= comment.User.Id %>"><span><b><%= comment.User.Name %></b></span></a>
+                            <span><%= comment.Content %></span>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+                <div style="display: flex; margin-top: 10px; align-items: center;">
+                    <img class="avatar" src="Avatar/<%= ((User)Session["user"]).Avatar %>" />
+                    <div class="new-comment">
+                        <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." onkeyup="checkEnter(event, <%= item.Id %>, <%= ((User) Session["user"]).Id %>)" />
+                    </div>
+                </div>
+
             </div>
-        </form>
+        </div>
     </div>
 </body>
 </html>

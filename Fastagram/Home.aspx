@@ -78,8 +78,14 @@
 
         chat.client.getMorePost = (posts) => {
             $(posts).each(function () {
+                var deleteBtn = "";
+                if (this.User.Id === parseInt('<%= (Session["user"] as User).Id %>')) {
+                    deleteBtn = `<a onclick="deletePost(${this.Id})" style="float: right" href="#">Delete</a>`;
+                }
+
                 var html = `
-                <div class="post">
+                <div class="post" id='post-container-${this.Id}'>
+                ${deleteBtn}
             <div class="post-header">
                 <img class="avatar" src="<%= Session["avaPath"].ToString() %>/${this.User.Avatar}" />
                 <div class="post-header-text">
