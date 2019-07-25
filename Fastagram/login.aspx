@@ -38,8 +38,8 @@
                                     </div>
 
                                     <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Remember password</label>
+                                        <input id="cbRemember" type="checkbox" class="custom-control-input" runat="server"/>
+                                        <label class="custom-control-label" for="cbRemember">Remember password</label>
                                     </div>
                                     <asp:Button ID="btnLogin" runat="server" Text="Sign In" OnClick="btnLogin_Click" class="btn btn-lg btn-info btn-block btn-login text-uppercase font-weight-bold mb-2" />
 

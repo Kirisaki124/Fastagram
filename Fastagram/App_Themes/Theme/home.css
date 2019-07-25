@@ -92,11 +92,13 @@
 }
 
 .nav {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.95);
     padding: 10px;
     position: fixed;
     width: 100%;
     top: 0;
+    display: flex;
+    justify-content: space-between;
 }
 
 .upload {
@@ -163,7 +165,7 @@
     border-radius: 20px;
 }
 
-.comment-bubble-text a {
+a {
     text-decoration: none;
     color: #4267b2;
 }
@@ -180,3 +182,12 @@
     border-radius: 20px;
     cursor: pointer;
 }
+
+.new-comment input {
+    outline: none;
+}
+
+i {
+    margin-right: 5px;
+}
+

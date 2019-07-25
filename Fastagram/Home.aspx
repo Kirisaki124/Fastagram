@@ -32,9 +32,13 @@
 
         }
 
-
         chat.client.notifyLikePost = (postId, userId, likeCount) => {
             $("#like" + postId).html(`${likeCount} <i class="far fa-thumbs-up"></i> Like`);
+        }
+
+        chat.client.notifyNewPost = () => {
+            var unreadPostCount = parseInt($('#totalNewPost a').html().split(' ')[0]);
+            $('#totalNewPost a').html(`${++unreadPostCount} new post(s)`);
         }
 
         $.connection.hub.start().done(() => {
@@ -52,21 +56,32 @@
     function addComment(id, userId) {
         var comment = $('#post' + id).val();
         chat.server.notifyNewComment(id, userId, comment);
-
+        var comment = $('#post' + id).val('');
         //window.location = "home"
         // Clear text box and reset focus for next comment.
     }
 
     function likePost(postId, userId) {
-
         chat.server.notifyLikePost(postId, userId);
+    }
+
+    function checkEnter(event, id, userId) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            addComment(id, userId);
+        }
+    }
+
+    function notifyIncomingPost() {
+        chat.server.notifyNewPost();
     }
 
 </script>
 <body>
     <div class="nav">
-        <img />
         <a href="Profile"><%= Manager.GetUserByID(((User)Session["user"]).Id).Name %></a>
+        <span id="totalNewPost" class="total-new-post"><a href="">0 new post(s)</a></span>
+        <a href="home?signout=true" style="float: right; margin-right: 20px;">Sign Out</a>
     </div>
 
     <div class="container">
@@ -75,10 +90,13 @@
                 <div class="message">
                     <img class="avatar" src="Avatar/<%= ((User) Session["user"]).Avatar %>" />
                     <asp:TextBox ID="contentUpload" runat="server" placeholder="What are you thinking?"></asp:TextBox>
-                    <span onclick="$('#fuImage').click()" class="upload-image"><i class="far fa-image"></i> Upload Image</span>
+                    <span onclick="$('#fuImage').click()" class="upload-image"><i class="far fa-image"></i>Upload Image</span>
+                    <div id="doneUpload" hidden style="margin-left: 5px">
+                        <i class="fas fa-check-circle" style="color: forestgreen"></i>
+                    </div>
                 </div>
-                <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" hidden/>
-                <asp:Button ID="btnUpload" runat="server" Text="Post" OnClick="btnUpload_Click" CssClass="post-button" />
+                <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" hidden onchange="$('#doneUpload').show();" />
+                <asp:Button ID="btnUpload" runat="server" Text="Post" OnClick="btnUpload_Click" CssClass="post-button" OnClientClick="notifyIncomingPost()"/>
             </div>
         </form>
         <%
@@ -89,7 +107,7 @@
             <div class="post-header">
                 <img class="avatar" src="Avatar/<%= Manager.GetUserByID(item.UserId).Avatar %>" />
                 <div class="post-header-text">
-                    <b class="user-name"><%= Manager.GetUserByID(item.UserId).Name %></b>
+                    <a href="Profile?id=<%= item.UserId %>"><b class="user-name"><%= Manager.GetUserByID(item.UserId).Name %></b></a>
                     <p class="date"><%= GetPrettyDate(item.Date) %></p>
                 </div>
             </div>
@@ -102,9 +120,9 @@
             </div>
 
             <div class="post-action">
-                <div id="like<%=item.Id %>" class="like" onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)"><%=item.LikeCount %> <i class="far fa-thumbs-up"></i> Like</div>
+                <div id="like<%=item.Id %>" class="like" onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)"><%=item.LikeCount %> <i class="far fa-thumbs-up"></i>Like</div>
                 <%--<button onclick="likePost(<%=item.Id %>, <%=((User)Session["user"]).Id %>)">like</button>--%>
-                <div class="comment" onclick='$("#post<%=item.Id %>").focus()'><i class="far fa-comment-alt"></i> Comment</div>
+                <div class="comment" onclick='$("#post<%=item.Id %>").focus()'><i class="far fa-comment-alt"></i>Comment</div>
             </div>
 
             <div id="comment<%=item.Id %>" class="comment-box">
@@ -115,7 +133,7 @@
                 <div class="comment-bubble">
                     <img class="avatar" src="Avatar/<%= Manager.GetUserByID(comment.UserId).Avatar %>" />
                     <div class="comment-bubble-text">
-                        <a href="Profile.aspx?id=<%= item.UserId %>"><span><b><%= Manager.GetUserByID(comment.UserId).Name %></b></span></a>
+                        <a href="Profile?id=<%= item.UserId %>"><span><b><%= Manager.GetUserByID(comment.UserId).Name %></b></span></a>
                         <span><%= comment.Content %></span>
                     </div>
                 </div>
@@ -126,8 +144,8 @@
             <div style="display: flex; margin-top: 10px; align-items: center;">
                 <img class="avatar" src="Avatar/<%= ((User)Session["user"]).Avatar %>" />
                 <div class="new-comment">
-                    <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." />
-                    <button onclick='addComment(<%= item.Id %>, <%= ((User) Session["user"]).Id %>)'>Post</button>
+                    <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." onkeyup="checkEnter(event, <%= item.Id %>, <%= ((User) Session["user"]).Id %>)" />
+                    <%--<button onclick='addComment(<%= item.Id %>, <%= ((User) Session["user"]).Id %>)'>Post</button>--%>
                 </div>
             </div>
 

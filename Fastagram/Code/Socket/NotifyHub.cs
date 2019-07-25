@@ -11,17 +11,10 @@ namespace Fastagram.Code.Socket
     [HubName("notifyHub")]
     public class NotifyHub : Hub
     {
-        public void hello(string message)
-        {
-            Clients.All.hello(message);
-        }
-
         public void notifyNewComment(string id, string userId, string comment)
         {
-
             Clients.All.notifyNewComment(id, userId, Manager.GetUserByID(Convert.ToInt32(userId)).Avatar, Manager.GetUserByID(Convert.ToInt32(userId)).Name, comment);
             Manager.AddComment(Convert.ToInt32(userId), Convert.ToInt32(id), comment); 
-            
         }
         public void notifyLikePost(string postId, string userId)
         {
@@ -30,6 +23,9 @@ namespace Fastagram.Code.Socket
             Clients.All.notifyLikePost(postId, userId, likeCounts);
 
         }
-
+        public void notifyNewPost()
+        {
+            Clients.All.notifyNewPost();
+        }
     }
 }

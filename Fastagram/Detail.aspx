@@ -70,7 +70,7 @@
 
     <div class="container"> 
         <form id="form1" runat="server">
-            <%Post item = Manager.GetPostById(Request.QueryString["id"]); %>
+            <% Post item = Manager.GetPostById(Request.QueryString["id"]); %>
             <div>
                 <div class="post">
                     <div class="post-header">

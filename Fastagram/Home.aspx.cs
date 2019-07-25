@@ -24,13 +24,17 @@ namespace Fastagram
                 {
                     Response.Redirect("login");
                 }
-            }
-        }
 
-        protected void btnSignout_Click(object sender, EventArgs e)
-        {
-            Session.Remove("user");
-            Response.Redirect("login");
+                if (Request.QueryString["signout"] != null && Request.QueryString["signout"] == "true")
+                {
+                    Session.Remove("user");
+                    if (Request.Cookies["remember"] != null)
+                    {
+                        Request.Cookies["remember"].Expires = DateTime.Now.AddDays(-1);
+                    }
+                    Response.Redirect("login");
+                }
+            }
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)

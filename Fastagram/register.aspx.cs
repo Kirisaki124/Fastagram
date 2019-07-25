@@ -1,4 +1,5 @@
 ﻿using Fastagram.Code.Data;
+using Fastagram.Code.Encrypt;
 using System;
 
 namespace Fastagram
@@ -16,7 +17,8 @@ namespace Fastagram
             {
                 if (txtPassword.Text == txtRePassword.Text)
                 {
-                    Manager.AddUser(txtUserName.Text, txtPassword.Text);
+                    Manager.AddUser(txtUserName.Text, Encryption.ComputeSha256Hash(txtPassword.Text));
+                    Response.Redirect("home");
                 }
                 else
                 {

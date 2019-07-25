@@ -8,19 +8,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="App_Themes/Theme/home.css" />
     <link rel="stylesheet" href="App_Themes/Theme/Profile.css" />
 </head>
 <body>
     <div class="nav">
-        <img />
         <a href="Home">Home</a>
+        <a href="home?signout=true" style="float: right; margin-right: 20px;">Sign Out</a>
     </div>
     <form id="form1" runat="server">
         <div class="container">
             <div class="user-profile">
                 <div class="c-avatar">
-                    <asp:Image CssClass="avatar" ID="ImgAvatar" runat="server" />
+                    <asp:Image CssClass="avatar" ID="ImgAvatar" runat="server" onclick="$('#fuImage').click(); " style="cursor: pointer"/>
                 </div>
                 <div class="c-profile">
                     <div class="c-user-name">
@@ -32,10 +33,10 @@
                     </div>
                 </div>
             </div>
-            <% if (id == 0)
+            <% if (id == Convert.ToInt32((Session["user"] as User).Id))
                 { %>
-            <div class="up">
-                <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" />
+            <div class="up" hidden>
+                <asp:FileUpload ID="fuImage" runat="server" accept=".jpg, .png, .jpeg" onchange="$('#btnUpload').click();"/>
                 <asp:Button ID="btnUpload" runat="server" Text="Change Avatar" OnClick="btnUpload_Click" />
             </div>
             <%} %>

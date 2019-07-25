@@ -16,24 +16,40 @@ namespace Fastagram
         public int id;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("Login.aspx");
-            }
-            else
-            {
-                id = Convert.ToInt32(Request.QueryString["id"]);
-                string path = "Avatar";
-                User user = (User)Session["user"];
-                if (id != 0)
+                try
                 {
-                    user = Manager.GetUserByID(id);
+                    if (Session["user"] == null)
+                    {
+                        Response.Redirect("Login.aspx");
+                    }
+                    else
+                    {
+                        id = Convert.ToInt32(Request.QueryString["id"]);
+                        string path = "Avatar";
+                        User user = (User)Session["user"];
+
+                        if (id != 0)
+                        {
+                            user = Manager.GetUserByID(id);
+                        }
+                        else
+                        {
+                            id = user.Id;
+                        }
+
+                        posts = Manager.GetPostByUser(user.Id, 1);
+                        path = Path.Combine(path, user.Avatar);
+                        ImgAvatar.ImageUrl = path;
+                        lbPostCount.Text = posts.Count().ToString();
+                        lbUserName.Text = user.Name;
+                    }
                 }
-                posts = Manager.GetPostByUser(user.Id, 1);
-                path = Path.Combine(path, user.Avatar);
-                ImgAvatar.ImageUrl = path;
-                lbPostCount.Text = posts.Count().ToString();
-                lbUserName.Text = user.Name;
+                catch (Exception)
+                {
+                    Response.Redirect("ErrorPage.html");
+                }
             }
         }
 

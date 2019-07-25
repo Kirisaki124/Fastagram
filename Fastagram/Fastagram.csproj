@@ -94,6 +94,7 @@
     <Content Include="App_Themes\Theme\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="App_Themes\Theme\bootstrap\js\bootstrap.js.map" />
     <Content Include="App_Themes\Theme\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="App_Themes\Theme\errorPage.css" />
     <Content Include="App_Themes\Theme\fontawesome\less\brands.less" />
     <Content Include="App_Themes\Theme\fontawesome\less\fontawesome.less" />
     <Content Include="App_Themes\Theme\fontawesome\less\regular.less" />
@@ -152,8 +153,8 @@
     <Content Include="App_Themes\Theme\home.css" />
     <Content Include="App_Themes\Theme\Profile.css" />
     <Content Include="App_Themes\Theme\detail.css" />
-    <Content Include="Chat.aspx" />
     <Content Include="Detail.aspx" />
+    <Content Include="ErrorPage.html" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -1743,15 +1744,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chat.aspx.cs">
-      <DependentUpon>Chat.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Chat.aspx.designer.cs">
-      <DependentUpon>Chat.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Code\Data\DAO.cs" />
     <Compile Include="Code\Data\Manager.cs" />
+    <Compile Include="Code\Encrypt\Encryption.cs" />
     <Compile Include="Code\Model\User.cs" />
     <Compile Include="Code\Model\Post.cs" />
     <Compile Include="Code\Model\Comment.cs" />
