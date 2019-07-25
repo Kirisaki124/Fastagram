@@ -13,7 +13,7 @@ namespace Fastagram
     public partial class Profile : System.Web.UI.Page
     {
         public List<Post> posts;
-
+        public int id;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] == null)
@@ -22,14 +22,18 @@ namespace Fastagram
             }
             else
             {
+                id = Convert.ToInt32(Request.QueryString["id"]);
                 string path = "Avatar";
                 User user = (User)Session["user"];
+                if (id != 0)
+                {
+                    user = Manager.GetUserByID(id);
+                }
                 posts = Manager.GetPostByUser(user.Id, 1);
                 path = Path.Combine(path, user.Avatar);
                 ImgAvatar.ImageUrl = path;
                 lbPostCount.Text = posts.Count().ToString();
                 lbUserName.Text = user.Name;
-                
             }
         }
 
@@ -59,6 +63,7 @@ namespace Fastagram
                     Console.WriteLine(ex.Message);
                 }
             }
+            Session["user"] = Manager.GetUserByID(((User)Session["user"]).Id);
             Response.Redirect("Profile");
         }
     }
