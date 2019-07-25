@@ -19,6 +19,36 @@
 <script type="text/javascript">
     var chat = $.connection.notifyHub;
 
+    document.addEventListener('DOMContentLoaded', function () {
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+    });
+
+    function pushNotification(title, desc) {
+
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+        else {
+            var notification = new Notification(title, {
+                icon: '',
+                body: desc,
+            });
+
+            /* Remove the notification from Notification Center when clicked.*/
+            notification.onclick = function () {
+                window.open('https://fastagram.azurewebsites.net/Home');
+            };
+
+            /* Callback function when the notification is closed. */
+            notification.onclose = function () {
+                console.log('Notification closed');
+            };
+
+        }
+    }  
+
     $(() => {
 
         chat.client.notifyNewComment = (postId, userId, avatar, userName, comment) => {
@@ -33,6 +63,11 @@
 
         }
 
+        chat.client.notifyNewPost = () => {
+            var unreadPostCount = parseInt($('#totalNewPost a').html().split(' ')[0]);
+            $('#totalNewPost a').html(`${++unreadPostCount} new post(s)`);
+            pushNotification('New Post From Fastagram', 'Click to see more');
+        }
 
         chat.client.notifyLikePost = (postId, userId, likeCount) => {
             $("#like" + postId).html(`${likeCount} <i class="far fa-thumbs-up"></i> Like`);
@@ -72,11 +107,17 @@
 </script>
 
 <body>
-    <div class="container">
+    <div class="nav">
+        <a href="Profile"><%= ((User)Session["user"]).Name %></a>
+        <span id="totalNewPost" class="total-new-post"><a href="home">0 new post(s)</a></span>
+        <a href="home?signout=true" style="float: right; margin-right: 20px;">Sign Out</a>
+    </div>
+
+    <div class="container" >
         <form id="form1" runat="server">
             <% Post item = Manager.GetPostById(Request.QueryString["id"]); %>
             <div>
-                <div class="post">
+                <div class="post" style="margin-top: 50px">
                     <div class="post-header">
                         <img class="avatar" src="Avatar/<%= item.User.Avatar %>" />
                         <div class="post-header-text">
