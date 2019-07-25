@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <%=Request.QueryString["id"] %>
+            <%= Request.QueryString["id"] %>
         </div>
     </form>
 </body>

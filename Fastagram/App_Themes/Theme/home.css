@@ -1,8 +1,10 @@
 ﻿body {
-    /*background: url('https://source.unsplash.com/1920x1080/?nature,landscape') center;*/
+    background: url('https://source.unsplash.com/1280x720/?nature,landscape') center no-repeat;
+    background-size: cover;
     background-attachment: fixed;
     margin: 0;
     padding: 0;
+    font-family: Helvetica, sans-serif;
 }
 
 .post {
@@ -61,7 +63,8 @@
 
 .new-comment {
     display: flex;
-    margin-top: 10px;
+    margin-left: 10px;
+    width: 100%;
 }
 
 .new-comment input {
@@ -106,16 +109,74 @@
 
 .message {
     margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .message input {
     width: 50%;
     height: 50px;
     vertical-align: text-top;
+    margin-left: 20px;
+    border: none;
+    padding: 10px;
+}
+
+.message input:focus {
+    outline: none;
 }
 
 .upload input[type=submit] {
-    background: none;
+    background: #4267b2;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
     border: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.post-header, .comment-bubble {
+    display: flex;
+    align-items: center;
+}
+
+.comment-bubble {
+    margin-top: 10px;
+}
+
+.post-header-text, .comment-bubble-text {
+    margin-left: 10px;
+}
+
+.comment-bubble-text {
+    background: #f2f3f6;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.comment-bubble-text a {
+    text-decoration: none;
+    color: #4267b2;
+}
+
+.user-name {
+    font-size: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.upload-image {
+    margin-left: 20px;
+    background: #f2f3f6;
+    padding: 15px;
+    border-radius: 20px;
     cursor: pointer;
 }

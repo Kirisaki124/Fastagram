@@ -51,7 +51,6 @@ namespace Fastagram
                     Manager.ChangeAvatar(dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, (Session["user"] as User).Id);
                     string imgPath = Path.Combine(path, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension);
                     fuImage.SaveAs(imgPath);
-                    
                 }
                 catch (Exception ex)
                 {
