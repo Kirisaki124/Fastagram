@@ -19,6 +19,36 @@
 <script type="text/javascript">
     var chat = $.connection.notifyHub;
 
+    document.addEventListener('DOMContentLoaded', function () {
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+    });  
+
+    function pushNotification(title, desc) {
+
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+        else {
+            var notification = new Notification(title, {
+                icon: '',
+                body: desc,
+            });
+
+            /* Remove the notification from Notification Center when clicked.*/
+            notification.onclick = function () {
+                window.open('https://fastagram.azurewebsites.net/Home');
+            };
+
+            /* Callback function when the notification is closed. */
+            notification.onclose = function () {
+                console.log('Notification closed');
+            };
+
+        }
+    }  
+
     $(() => {
         chat.client.notifyNewComment = (postId, userId, avatar, userName, comment) => {
             $("#comment" + postId).append(`
@@ -29,7 +59,7 @@
                         <span>${comment}</span>
                     </div>
                 </div>`);
-
+            pushNotification('New Comment From Fastagram', userName + ": " + comment);
         }
 
         chat.client.notifyLikePost = (postId, userId, likeCount) => {
@@ -39,6 +69,7 @@
         chat.client.notifyNewPost = () => {
             var unreadPostCount = parseInt($('#totalNewPost a').html().split(' ')[0]);
             $('#totalNewPost a').html(`${++unreadPostCount} new post(s)`);
+            pushNotification('New Post From Fastagram', 'Click to see more');
         }
 
         chat.client.notifyDeletePost = (id) => {
