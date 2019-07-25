@@ -243,7 +243,7 @@
                     <div class="comment-bubble">
                         <img class="avatar" src="Avatar/<%= comment.User.Avatar %>" />
                         <div class="comment-bubble-text">
-                            <a href="Profile?id=<%= item.User.Id %>"><span><b><%= comment.User.Name %></b></span></a>
+                            <a href="Profile?id=<%= comment.User.Id %>"><span><b><%= comment.User.Name %></b></span></a>
                             <span><%= comment.Content %></span>
                         </div>
                     </div>
