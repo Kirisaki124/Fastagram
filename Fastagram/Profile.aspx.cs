@@ -18,37 +18,30 @@ namespace Fastagram
         {
             if (!IsPostBack)
             {
-                try
+                if (Session["user"] == null)
                 {
-                    if (Session["user"] == null)
+                    Response.Redirect("Login.aspx");
+                }
+                else
+                {
+                    id = Convert.ToInt32(Request.QueryString["id"]);
+                    string path = "Avatar";
+                    User user = (User)Session["user"];
+
+                    if (id != 0)
                     {
-                        Response.Redirect("Login.aspx");
+                        user = Manager.GetUserByID(id);
                     }
                     else
                     {
-                        id = Convert.ToInt32(Request.QueryString["id"]);
-                        string path = "Avatar";
-                        User user = (User)Session["user"];
-
-                        if (id != 0)
-                        {
-                            user = Manager.GetUserByID(id);
-                        }
-                        else
-                        {
-                            id = user.Id;
-                        }
-
-                        posts = Manager.GetPostByUser(user.Id, 1);
-                        path = Path.Combine(path, user.Avatar);
-                        ImgAvatar.ImageUrl = path;
-                        lbPostCount.Text = posts.Count().ToString();
-                        lbUserName.Text = user.Name;
+                        id = user.Id;
                     }
-                }
-                catch (Exception)
-                {
-                    Response.Redirect("ErrorPage.html");
+
+                    posts = Manager.GetPostByUser(user.Id, 1);
+                    path = Path.Combine(path, user.Avatar);
+                    ImgAvatar.ImageUrl = path;
+                    lbPostCount.Text = posts.Count().ToString();
+                    lbUserName.Text = user.Name;
                 }
             }
         }
