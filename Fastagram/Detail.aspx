@@ -63,20 +63,24 @@
         chat.server.notifyLikePost(postId, userId);
     }
 
-
+    function checkEnter(event, id, userId) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            addComment(id, userId);
+        }
+    }
 </script>
 
 <body>
-
-    <div class="container"> 
+    <div class="container">
         <form id="form1" runat="server">
             <% Post item = Manager.GetPostById(Request.QueryString["id"]); %>
             <div>
                 <div class="post">
                     <div class="post-header">
-                        <img class="avatar" src="Avatar/<%= Manager.GetUserByID(item.UserId).Avatar %>" />
+                        <img class="avatar" src="Avatar/<%= item.User.Avatar %>" />
                         <div class="post-header-text">
-                            <b class="user-name"><%= Manager.GetUserByID(item.UserId).Name %></b>
+                            <b class="user-name"><%= item.User.Name %></b>
                             <p class="date"><%= GetPrettyDate(item.Date) %></p>
                         </div>
                     </div>
@@ -100,9 +104,9 @@
                             {
                         %>
                         <div class="comment-bubble">
-                            <img class="avatar" src="Avatar/<%= Manager.GetUserByID(comment.UserId).Avatar %>" />
+                            <img class="avatar" src="Avatar/<%= comment.User.Avatar %>" />
                             <div class="comment-bubble-text">
-                                <a href="Profile.aspx?id=<%= comment.UserId %>"><span><b><%= Manager.GetUserByID(comment.UserId).Name %></b></span></a>
+                                <a href="Profile.aspx?id=<%= comment.User.Id %>"><span><b><%= comment.User.Name %></b></span></a>
                                 <span><%= comment.Content %></span>
                             </div>
                         </div>
@@ -113,8 +117,7 @@
                     <div style="display: flex; margin-top: 10px; align-items: center;">
                         <img class="avatar" src="Avatar/<%= ((User)Session["user"]).Avatar %>" />
                         <div class="new-comment">
-                            <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." />
-                            <button onclick='addComment(<%= item.Id %>, <%= ((User) Session["user"]).Id %>)'>Post</button>
+                            <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." onkeyup="checkEnter(event, <%= item.Id %>, <%= ((User) Session["user"]).Id %>)" />
                         </div>
                     </div>
 

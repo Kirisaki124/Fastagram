@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
@@ -27,10 +28,14 @@ namespace Fastagram
 
         protected void Session_Start(object sender, EventArgs e)
         {
+            string imagePath = ConfigurationManager.ConnectionStrings["ImagePath"].ToString();
+            string avaPath = ConfigurationManager.ConnectionStrings["AvatarPath"].ToString();
 
+            Session["imagePath"] = imagePath;
+            Session["avaPath"] = avaPath;
         }
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
+    protected void Application_BeginRequest(object sender, EventArgs e)
         {
 
         }

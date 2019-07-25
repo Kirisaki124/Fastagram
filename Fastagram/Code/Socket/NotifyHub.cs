@@ -5,6 +5,7 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Fastagram.Code.Data;
+using Fastagram.Code.Model;
 
 namespace Fastagram.Code.Socket
 {
@@ -23,6 +24,13 @@ namespace Fastagram.Code.Socket
             Clients.All.notifyLikePost(postId, userId, likeCounts);
 
         }
+        public void getMorePostByPage(int page)
+        {
+            List<Post> a = Manager.GetPostByPage(page);
+            Clients.Caller.getMorePost(a);
+        }
+
+
         public void notifyNewPost()
         {
             Clients.All.notifyNewPost();

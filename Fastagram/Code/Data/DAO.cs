@@ -9,7 +9,7 @@ namespace Fastagram.Code.Data
 {
     public class DataAccess
     {
-        private static int MaxPostPerPage = 20;
+        private static int MaxPostPerPage = 2;
         static SqlConnection GetConnection()
         {
             string ConnectionString = ConfigurationManager.ConnectionStrings["FastagramDB"].ToString();
@@ -67,7 +67,7 @@ namespace Fastagram.Code.Data
                            )as a
                            where rownum between @min and @max";
             SqlParameter para1 = new SqlParameter("@min", SqlDbType.Int);
-            para1.Value = (page - 1) * MaxPostPerPage;
+            para1.Value = (page - 1) * MaxPostPerPage + 1;
             SqlParameter para2 = new SqlParameter("@max", SqlDbType.Int);
             para2.Value = page * MaxPostPerPage;
 
