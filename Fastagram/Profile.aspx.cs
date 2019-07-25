@@ -22,7 +22,7 @@ namespace Fastagram
             }
             else
             {
-                string path = "Images";
+                string path = "Avatar";
                 User user = (User)Session["user"];
                 posts = Manager.GetPostByUser(user.Id, 1);
                 path = Path.Combine(path, user.Avatar);
@@ -48,10 +48,10 @@ namespace Fastagram
             {
                 try
                 {
-                    //// userId                      image name                                content
-                    //Manager.((Session["user"] as User).Id, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, "testing content");
-                    //string imgPath = Path.Combine(path, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension);
-                    //fuImage.SaveAs(imgPath);
+                    Manager.ChangeAvatar(dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension, (Session["user"] as User).Id);
+                    string imgPath = Path.Combine(path, dateCreated.ToString("MM_dd_yyyy_hh_mm_ss_tt") + extension);
+                    fuImage.SaveAs(imgPath);
+                    
                 }
                 catch (Exception ex)
                 {

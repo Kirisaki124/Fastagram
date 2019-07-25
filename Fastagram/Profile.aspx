@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Fastagram.Profile" %>
 
 <%@ Import Namespace="Fastagram.Code.Model" %>
+<%@ Import Namespace="Fastagram.Code.Data" %>
 <%@ Import Namespace="System.IO" %>
 <!DOCTYPE html>
 
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="App_Themes/Theme/Profile.css" />
 </head>
 <body>
+    
     <form id="form1" runat="server">
         <div class="container">
             
