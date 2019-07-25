@@ -18,7 +18,6 @@
     </div>
     <form id="form1" runat="server">
         <div class="container">
-
             <div class="user-profile">
                 <div class="c-avatar">
                     <asp:Image CssClass="avatar" ID="ImgAvatar" runat="server" />
