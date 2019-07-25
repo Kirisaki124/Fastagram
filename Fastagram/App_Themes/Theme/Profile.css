@@ -25,10 +25,12 @@
 .avatar {
     margin-top: 20px;
     border-radius: 50%;
+    min-height: 200px;
+    min-width: 200px;
     max-height: 200px;
     max-width: 200px;
     margin-left: 10%;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     background-color: black;
     box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.78);
 }
@@ -52,6 +54,7 @@
     vertical-align:central;
 }
 .post-container {
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     padding-left: 10px;

@@ -18,7 +18,8 @@ namespace Fastagram.Code.Socket
 
         public void notifyNewComment(string id, string userId, string comment)
         {
-            Clients.All.notifyNewComment(id, userId, Manager.GetUserByID(Convert.ToInt32(userId)).Name, comment);
+
+            Clients.All.notifyNewComment(id, userId, Manager.GetUserByID(Convert.ToInt32(userId)).Avatar, Manager.GetUserByID(Convert.ToInt32(userId)).Name, comment);
             Manager.AddComment(Convert.ToInt32(userId), Convert.ToInt32(id), comment); 
             
         }

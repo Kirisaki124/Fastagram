@@ -20,12 +20,16 @@
 
     $(() => {
 
-        chat.client.notifyNewComment = (postId, userId, userName, comment) => {
-            $("#comment" + postId).append(`<div>
-                    <img />
-                    <span><b>${userName}</b></span>
-                    <span>${comment}</span>
+        chat.client.notifyNewComment = (postId, userId, avatar, userName, comment) => {
+            $("#comment" + postId).append(`
+                <div class="comment-bubble">
+                    <img class="avatar" src="Avatar/${avatar}" />
+                    <div class="comment-bubble-text">
+                        <a href="Profile.aspx?id=${userId}"><span><b>${userName}</b></span></a>
+                        <span>${comment}</span>
+                    </div>
                 </div>`);
+
         }
 
 
@@ -109,7 +113,7 @@
                     {
                 %>
                 <div class="comment-bubble">
-                    <img class="avatar" src="Avatar/<%= Manager.GetUserByID(item.UserId).Avatar %>" />
+                    <img class="avatar" src="Avatar/<%= Manager.GetUserByID(comment.UserId).Avatar %>" />
                     <div class="comment-bubble-text">
                         <a href="Profile.aspx?id=<%= item.UserId %>"><span><b><%= Manager.GetUserByID(comment.UserId).Name %></b></span></a>
                         <span><%= comment.Content %></span>
@@ -120,7 +124,7 @@
                 %>
             </div>
             <div style="display: flex; margin-top: 10px; align-items: center;">
-                <img class="avatar" src="Avatar/<%= Manager.GetUserByID(item.UserId).Avatar %>" />
+                <img class="avatar" src="Avatar/<%= ((User)Session["user"]).Avatar %>" />
                 <div class="new-comment">
                     <input id="post<%= item.Id %>" type="text" placeholder="Enter something..." />
                     <button onclick='addComment(<%= item.Id %>, <%= ((User) Session["user"]).Id %>)'>Post</button>
